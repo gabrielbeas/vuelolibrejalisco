@@ -311,6 +311,23 @@
     text-align: right;
   }
 
+  .cuota-row-pagable { grid-template-columns: 1fr auto auto; gap: 1rem; }
+
+  .cuota-pagar {
+    background: var(--azul);
+    color: var(--blanco);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    white-space: nowrap;
+    transition: background 0.2s;
+  }
+
+  .cuota-pagar:hover { background: var(--azul-claro); }
+
   .cuotas-cta {
     margin-top: 1.5rem;
     background: var(--blanco);
@@ -413,12 +430,13 @@
       <span>Tipo de membresía</span>
       <span>Cuota</span>
     </div>
-    <div class="cuota-row">
+    <div class="cuota-row cuota-row-pagable">
       <div>
         <div class="cuota-tipo">Asociado</div>
         <div class="cuota-nota">Membresía anual</div>
       </div>
       <div class="cuota-precio">$2,800</div>
+      <a href="https://mpago.la/1ZLnLDA" target="_blank" rel="noopener" class="cuota-pagar">Pagar →</a>
     </div>
     <div class="cuota-row">
       <div>
