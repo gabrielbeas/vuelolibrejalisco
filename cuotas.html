@@ -350,6 +350,27 @@
 
   .cuotas-cta:hover { background: var(--gris-oscuro); color: var(--blanco); }
 
+  .cuotas-test {
+    margin-top: 1rem;
+    background: var(--gris-claro);
+    color: var(--gris-medio);
+    font-weight: 700;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.7rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 1px dashed var(--gris-medio);
+    border-radius: var(--radius);
+    width: 100%;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .cuotas-test:hover { background: var(--gris-oscuro); color: var(--blanco); border-color: var(--gris-oscuro); }
+
   /* La nav ya no cabe abajo de 1100px: pasa a hamburguesa */
   @media (max-width: 1100px) {
     nav { padding: 0.9rem 1.5rem; }
@@ -476,9 +497,9 @@
       <div class="cuota-gratis">GRATIS</div>
     </div>
   </div>
-  <button class="cuotas-cta" onclick="alert('Integración con MercadoPago — próximamente')">
-    💳 Pagar membresía con MercadoPago
-  </button>
+  <a href="https://mpago.la/1NH17dW" target="_blank" rel="noopener" class="cuotas-test">
+    🧪 Botón de prueba — $10 MXN
+  </a>
 
 </div>
 
