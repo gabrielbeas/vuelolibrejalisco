@@ -401,10 +401,10 @@
     line-height: 1.6;
   }
 
-  /* ── PARTNERS ── */
+  /* ── ALIANZAS ESTRATÉGICAS ── */
   .partners-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 1.2rem;
   }
 
@@ -434,6 +434,72 @@
     text-transform: uppercase;
     color: var(--gris-medio);
     text-align: center;
+  }
+
+  .partner-card {
+    border: 1px solid var(--borde);
+    background: var(--blanco);
+    border-radius: 10px;
+    padding: 1.1rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .partner-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .partner-card-top {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .partner-card-foto {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 1px solid var(--borde);
+  }
+
+  .partner-card-nombre {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--gris-oscuro);
+  }
+
+  .partner-card-insta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    color: var(--gris-medio);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .partner-card-insta svg { width: 15px; height: 15px; fill: currentColor; flex-shrink: 0; }
+  .partner-card-insta:hover { color: var(--azul-claro); }
+
+  .partner-card-rol {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--azul-claro);
+  }
+
+  .partner-card-desc {
+    font-size: 0.8rem;
+    color: var(--gris-medio);
+    line-height: 1.6;
   }
 
   .nos-contacto {
@@ -644,11 +710,24 @@
     </div>
   </div>
 
-  <h2 class="nos-h2">Partners</h2>
-  <p class="nos-intro">Aliados estratégicos que hacen posible el trabajo del club. Sección en construcción — próximamente los logotipos.</p>
+  <h2 class="nos-h2">Alianzas Estratégicas</h2>
+  <p class="nos-intro">Aliados estratégicos que hacen posible el trabajo del club. Sección en construcción — iremos sumando más colaboradores.</p>
 
   <div class="partners-grid">
-    <div class="partner-slot"><span class="partner-slot-label">Logo próximamente</span></div>
+    <div class="partner-card">
+      <div class="partner-card-header">
+        <div class="partner-card-top">
+          <img class="partner-card-foto" src="img/operadoras/paco_peciado.png" alt="Paco Preciado">
+          <span class="partner-card-nombre">Paco Preciado</span>
+        </div>
+        <a class="partner-card-insta" href="https://www.instagram.com/paco_peciado" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07c-1.28.06-2.15.26-2.91.56-.79.31-1.46.72-2.13 1.39-.67.67-1.08 1.34-1.39 2.13-.3.76-.5 1.63-.56 2.91C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.28.26 2.15.56 2.91.31.79.72 1.46 1.39 2.13.67.67 1.34 1.08 2.13 1.39.76.3 1.63.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.28-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.39.67-.67 1.08-1.34 1.39-2.13.3-.76.5-1.63.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.39-2.13-.67-.67-1.34-1.08-2.13-1.39-.76-.3-1.63-.5-2.91-.56C15.67.01 15.26 0 12 0z"/><path d="M12 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg>
+          @paco_peciado
+        </a>
+      </div>
+      <div class="partner-card-rol">FPV Filmmaker · Foto y Video</div>
+      <p class="partner-card-desc">Video, foto y piloto de dron FPV. Documenta vuelos y eventos del club en parapente y ala delta.</p>
+    </div>
     <div class="partner-slot"><span class="partner-slot-label">Logo próximamente</span></div>
     <div class="partner-slot"><span class="partner-slot-label">Logo próximamente</span></div>
     <div class="partner-slot"><span class="partner-slot-label">Logo próximamente</span></div>
