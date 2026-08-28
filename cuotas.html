@@ -350,26 +350,45 @@
 
   .cuotas-cta:hover { background: var(--gris-oscuro); color: var(--blanco); }
 
-  .cuotas-test {
+  .reembolso-toggle {
     margin-top: 1rem;
-    background: var(--gris-claro);
-    color: var(--gris-medio);
-    font-weight: 700;
-    font-size: 0.68rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0.7rem 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    border: 1px dashed var(--gris-medio);
+    border: 1px solid var(--borde);
     border-radius: var(--radius);
-    width: 100%;
-    transition: background 0.2s, color 0.2s;
+    overflow: hidden;
   }
 
-  .cuotas-test:hover { background: var(--gris-oscuro); color: var(--blanco); border-color: var(--gris-oscuro); }
+  .reembolso-toggle summary {
+    padding: 0.9rem 1.5rem;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--azul);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--gris-claro);
+  }
+
+  .reembolso-toggle summary::-webkit-details-marker { display: none; }
+
+  .reembolso-toggle summary::after {
+    content: '▾';
+    transition: transform 0.2s;
+  }
+
+  .reembolso-toggle[open] summary::after { transform: rotate(180deg); }
+
+  .reembolso-body {
+    padding: 1.2rem 1.5rem 1.5rem;
+    font-size: 0.85rem;
+    color: var(--gris-medio);
+    line-height: 1.6;
+  }
+
+  .reembolso-body p { margin: 0 0 0.9rem; }
+  .reembolso-body p:last-child { margin-bottom: 0; }
+  .reembolso-body a { color: var(--azul-claro); }
 
   /* La nav ya no cabe abajo de 1100px: pasa a hamburguesa */
   @media (max-width: 1100px) {
@@ -475,19 +494,21 @@
       <div class="cuota-precio">$5,600</div>
       <a href="https://mpago.la/1opv4Vi" target="_blank" rel="noopener" class="cuota-pagar">Pagar →</a>
     </div>
-    <div class="cuota-row">
+    <div class="cuota-row cuota-row-pagable">
       <div>
         <div class="cuota-tipo">Visitante — por día</div>
         <div class="cuota-nota">Piloto visitante</div>
       </div>
       <div class="cuota-precio">$100</div>
+      <a href="https://mpago.la/2fyXstC" target="_blank" rel="noopener" class="cuota-pagar">Pagar →</a>
     </div>
-    <div class="cuota-row">
+    <div class="cuota-row cuota-row-pagable">
       <div>
         <div class="cuota-tipo">Visitante — 15 días</div>
         <div class="cuota-nota">Piloto visitante</div>
       </div>
       <div class="cuota-precio">$1,000</div>
+      <a href="https://mpago.la/2FQg4A9" target="_blank" rel="noopener" class="cuota-pagar">Pagar →</a>
     </div>
     <div class="cuota-row">
       <div>
@@ -497,9 +518,16 @@
       <div class="cuota-gratis">GRATIS</div>
     </div>
   </div>
-  <a href="https://mpago.la/1NH17dW" target="_blank" rel="noopener" class="cuotas-test">
-    🧪 Botón de prueba — $10 MXN
-  </a>
+  <details class="reembolso-toggle">
+    <summary>Política de reembolso</summary>
+    <div class="reembolso-body">
+      <p>Tenemos una política de reembolso de 30 días: tienes 30 días después de realizar tu pago para solicitar un reembolso.</p>
+      <p>Para poder optar a un reembolso, necesitarás tu comprobante de pago, y la membresía, cuota o vuelo pagado no debe haberse utilizado.</p>
+      <p>Para iniciar un reembolso, puedes contactarnos en <a href="mailto:vuelolibrejalisco@gmail.com">vuelolibrejalisco@gmail.com</a>.</p>
+      <p>Te notificaremos si el reembolso fue aprobado o no. Si se aprueba, lo recibirás en tu método de pago original en un plazo de 10 días hábiles. Ten en cuenta que tu banco o compañía de tarjeta de crédito también puede tardar un tiempo en procesar y reflejar el reembolso.</p>
+      <p>Si han transcurrido más de 15 días hábiles desde que aprobamos tu reembolso, contáctanos de nuevo a <a href="mailto:vuelolibrejalisco@gmail.com">vuelolibrejalisco@gmail.com</a>.</p>
+    </div>
+  </details>
 
 </div>
 
