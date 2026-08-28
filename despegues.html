@@ -337,12 +337,22 @@
 
   .despegue-btn:hover { background: var(--gris-oscuro); color: var(--blanco); }
 
+  .despegue-btn-primary {
+    background: var(--azul);
+    border-color: var(--azul);
+    color: var(--blanco);
+  }
+
+  .despegue-btn-primary:hover { background: var(--azul-claro); border-color: var(--azul-claro); color: var(--blanco); }
+
   .despegue-btns {
     display: flex;
     flex-wrap: wrap;
     gap: 0.6rem;
     margin-top: 1rem;
   }
+
+  .despegue-btns-primary { margin-top: 1rem; margin-bottom: -0.4rem; }
 
   .despegue-btns .despegue-btn { margin-top: 0; }
 
@@ -659,9 +669,12 @@
             <div class="ficha-row"><span class="ficha-label">Altura</span><span class="ficha-val">2,336 msnm</span></div>
             <div class="ficha-row"><span class="ficha-label">Viento</span><span class="ficha-val">Sur – Suroeste – Oeste (bueno), Norte – Sureste – Noroeste (posible)</span></div>
             <div class="ficha-row"><span class="ficha-label">Coordenadas</span><span class="ficha-val">N 19.0616° O 100.091° · <a href="https://www.google.com/maps?q=19.0616,-100.091" target="_blank" rel="noopener">Ver en Google Maps →</a></span></div>
-            <div class="ficha-row"><span class="ficha-label">Acceso</span><span class="ficha-val">—</span></div>
-            <div class="ficha-row"><span class="ficha-label">Operado por</span><span class="ficha-val">—</span></div>
+            <div class="ficha-row"><span class="ficha-label">Acceso</span><span class="ficha-val">La Albarrada, Valle de Bravo, Estado de México</span></div>
+            <div class="ficha-row"><span class="ficha-label">Operado por</span><span class="ficha-val">Club Peñón</span></div>
             <div class="ficha-row"><span class="ficha-label">Contactos</span><span class="ficha-val">—</span></div>
+          </div>
+          <div class="despegue-btns despegue-btns-primary">
+            <a href="https://clubpenon.org" target="_blank" rel="noopener" class="despegue-btn despegue-btn-primary">Club Peñón →</a>
           </div>
           <div class="despegue-btns">
             <a href="https://www.wilderadventures.com/launch/1068/el-penon-la-albarrada" target="_blank" rel="noopener" class="despegue-btn">Wilder Adventures →</a>
@@ -706,10 +719,12 @@
             <div class="ficha-row"><span class="ficha-label">Operado por</span><span class="ficha-val">Parapente Colima</span></div>
             <div class="ficha-row"><span class="ficha-label">Contactos</span><span class="ficha-val"><a href="https://www.facebook.com/parapentecolima" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.instagram.com/parapente.colima/" target="_blank" rel="noopener">@parapente.colima</a> · Instructor Benjamín Silva (cert. AVLM) <a href="https://www.instagram.com/benjamin.anda.volando/" target="_blank" rel="noopener">@benjamin.anda.volando</a></span></div>
           </div>
+          <div class="despegue-btns despegue-btns-primary">
+            <a href="https://www.parapentecolima.com/despegues.php" target="_blank" rel="noopener" class="despegue-btn despegue-btn-primary">Parapente Colima →</a>
+          </div>
           <div class="despegue-btns">
             <a href="https://www.wilderadventures.com/launch/1232/la-cumbre-el-bajio" target="_blank" rel="noopener" class="despegue-btn">Wilder Adventures →</a>
             <a href="https://www.paraglidingearth.com/?site=6815" target="_blank" rel="noopener" class="despegue-btn">ParaglidingEarth →</a>
-            <a href="https://www.parapentecolima.com/despegues.php" target="_blank" rel="noopener" class="despegue-btn">Parapente Colima →</a>
           </div>
         </div>
         <img src="img/viento/lacumbre.png" alt="Diagrama de direcciones de viento para La Cumbre" class="despegue-viento-diagrama">
