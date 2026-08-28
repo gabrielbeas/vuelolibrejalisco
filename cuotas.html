@@ -237,11 +237,20 @@
   }
 
   .beneficios-list li::before {
-    content: '✈';
-    color: var(--azul-claro);
     font-size: 0.85rem;
+    font-weight: 700;
     flex-shrink: 0;
     margin-top: 0.1rem;
+  }
+
+  .beneficios-check::before {
+    content: '✓';
+    color: #2F855A;
+  }
+
+  .beneficios-cross::before {
+    content: '✕';
+    color: #C53030;
   }
 
   .beneficios-list a {
@@ -519,10 +528,13 @@
 <div class="cuotas-content">
 
   <ul class="beneficios-list">
-    <li>Voto en asambleas de la asociación</li>
-    <li><a href="eventos.html">Participación en proyectos 2026–2027 →</a></li>
-    <li>Comunidad de pilotos organizada</li>
-    <li>Menores de 18 años sin costo</li>
+    <li class="beneficios-check">Menores de 18 años sin costo</li>
+    <li class="beneficios-check">Voto en asambleas</li>
+    <li class="beneficios-check">Formar parte de los Comités del Club de Vuelo Libre Jalisco</li>
+    <li class="beneficios-check">Uso ilimitado del despegue Las Antenas</li>
+    <li class="beneficios-check">Uso ilimitado de los aterrizajes Piano y Los Papalotes</li>
+    <li class="beneficios-check">Acceso a botiquín de primeros auxilios ubicado en Los Papalotes</li>
+    <li class="beneficios-cross">No incluye el uso de los despegues de Gravedad 0 y La Ceja (tienen cuota aparte)</li>
   </ul>
 
   <div class="cuotas-tabla">
