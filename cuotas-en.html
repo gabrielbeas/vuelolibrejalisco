@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
+<link rel="icon" href="img/favicon/favicon.ico">
+<meta name="description" content="Fees and membership — Club de Vuelo Libre de Jalisco">
+<title>Fees and membership — Vuelo Libre Jalisco</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --azul: #2B6CB0;
+    --azul-claro: #4A90D9;
+    --azul-cielo: #EBF4FF;
+    --amarillo: #F5C518;
+    --blanco: #FFFFFF;
+    --gris-oscuro: #171923;
+    --gris-medio: #6B7280;
+    --gris-claro: #F7FAFC;
+    --borde: rgba(0,0,0,0.1);
+    --radius: 10px;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--blanco);
+    color: var(--gris-oscuro);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 2.5rem;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--borde);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .nav-logo img { height: 2.8rem; width: auto; }
+
+  .nav-logo-text { display: flex; align-items: center; }
+  .nav-logo-text .l1 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--gris-oscuro);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.8rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--gris-medio);
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--azul); }
+  .nav-links a.active { color: var(--azul); border-bottom: 2px solid var(--azul); padding-bottom: 2px; }
+
+  .nav-links a.nav-sos,
+  #menu-overlay a.sos-mobile { color: var(--rojo, #C53030); }
+  .nav-links a.nav-sos:hover { color: #9B2C2C; }
+  .nav-links a.nav-sos.active { color: var(--rojo, #C53030); border-bottom-color: var(--rojo, #C53030); }
+  #menu-overlay a.sos-mobile { color: #F8B4B4; }
+
+  .nav-cta {
+    background: var(--blanco) !important;
+    border: 1px solid var(--gris-oscuro);
+    color: var(--gris-oscuro) !important;
+    padding: 0.45rem 1.1rem;
+    border-radius: 999px;
+    font-weight: 500 !important;
+    transition: background 0.2s, color 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--gris-oscuro) !important; color: var(--blanco) !important; }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 600;
+    padding: 4px;
+  }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--gris-oscuro); transition: all 0.3s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ── OVERLAY MÓVIL ── */
+  #menu-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(23,25,35,0.97);
+    backdrop-filter: blur(20px);
+    z-index: 500;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.8rem;
+  }
+  #menu-overlay a {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    color: #ffffff;
+  }
+  #menu-overlay .cta-mobile {
+    background: var(--blanco);
+    border: 1px solid var(--blanco);
+    color: var(--gris-oscuro) !important;
+    padding: 0.7rem 1.8rem;
+    border-radius: 999px;
+    margin-top: 0.5rem;
+    font-size: 1rem !important;
+  }
+
+  /* ── HERO SUBPÁGINA ── */
+  .page-hero {
+    background: url('img/headers/cuotas.jpg') center center / cover no-repeat;
+    padding: 14rem 2.5rem 6rem;
+    text-align: center;
+    position: relative;
+  }
+
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(23,25,35,0.275);
+  }
+
+  .page-hero .eyebrow,
+  .page-hero h1,
+  .page-hero p {
+    position: relative;
+    z-index: 1;
+  }
+
+  .page-hero .eyebrow {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 1rem;
+  }
+
+  .page-hero h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #ffffff;
+    line-height: 0.95;
+    margin-bottom: 1rem;
+  }
+
+  .page-hero p {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.7);
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ── CONTENIDO ── */
+  .cuotas-content {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 4rem 2.5rem;
+    background: var(--gris-claro);
+  }
+
+  .cuotas-body {
+    font-size: 1rem;
+    color: var(--gris-medio);
+    line-height: 1.8;
+  }
+
+  .beneficios-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .beneficios-list li {
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+    font-size: 0.9rem;
+    color: var(--gris-medio);
+    line-height: 1.5;
+  }
+
+  .beneficios-list li::before {
+    font-size: 0.85rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .beneficios-check::before {
+    content: '✓';
+    color: #2F855A;
+  }
+
+  .beneficios-cross::before {
+    content: '✕';
+    color: #C53030;
+  }
+
+  .beneficios-list a {
+    color: var(--azul);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .cuotas-tabla {
+    margin-top: 3rem;
+    border: 1px solid var(--borde);
+    background: var(--blanco);
+    overflow: hidden;
+  }
+
+  .cuotas-tabla-header {
+    background: var(--gris-claro);
+    border-bottom: 1px solid var(--borde);
+    padding: 1rem 1.5rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gris-oscuro);
+    display: grid;
+    grid-template-columns: 1fr auto;
+  }
+
+  .cuota-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--borde);
+    align-items: center;
+    transition: background 0.15s;
+  }
+
+  .cuota-row:last-child { border-bottom: none; }
+  .cuota-row:hover { background: var(--azul-cielo); }
+
+  .cuota-tipo {
+    font-weight: 700;
+    color: var(--gris-oscuro);
+    font-size: 0.95rem;
+  }
+
+  .cuota-nota {
+    font-size: 0.75rem;
+    color: var(--gris-medio);
+    margin-top: 0.15rem;
+  }
+
+  .cuota-desc {
+    font-size: 0.75rem;
+    color: var(--gris-medio);
+    margin-top: 0.4rem;
+    line-height: 1.5;
+    max-width: 480px;
+  }
+
+  .cuota-precio {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--azul);
+    text-align: right;
+  }
+
+  .cuota-gratis {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #38A169;
+    text-align: right;
+  }
+
+  .cuota-row-pagable { grid-template-columns: 1fr auto auto; gap: 1rem; }
+
+  .cuota-pagar {
+    background: var(--azul);
+    color: var(--blanco);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    white-space: nowrap;
+    transition: background 0.2s;
+  }
+
+  .cuota-pagar:hover { background: var(--azul-claro); }
+
+  .cuotas-cta {
+    margin-top: 1.5rem;
+    background: var(--blanco);
+    color: var(--gris-oscuro);
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+    border: 1px solid var(--gris-oscuro);
+    border-radius: var(--radius);
+    width: 100%;
+  }
+
+  .cuotas-cta:hover { background: var(--gris-oscuro); color: var(--blanco); }
+
+  .reembolso-toggle {
+    margin-top: 1rem;
+    border: 1px solid var(--borde);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .reembolso-toggle summary {
+    padding: 0.9rem 1.5rem;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--azul);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--gris-claro);
+  }
+
+  .reembolso-toggle summary::-webkit-details-marker { display: none; }
+
+  .reembolso-toggle summary::after {
+    content: '▾';
+    transition: transform 0.2s;
+  }
+
+  .reembolso-toggle[open] summary::after { transform: rotate(180deg); }
+
+  .reembolso-body {
+    padding: 1.2rem 1.5rem 1.5rem;
+    font-size: 0.85rem;
+    color: var(--gris-medio);
+    line-height: 1.6;
+  }
+
+  .reembolso-body p { margin: 0 0 0.9rem; }
+  .reembolso-body p:last-child { margin-bottom: 0; }
+  .reembolso-body a { color: var(--azul-claro); }
+
+  .cuotas-contacto-nota {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: var(--gris-medio);
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  .cuotas-contacto-nota a { color: var(--azul-claro); }
+
+  /* La nav ya no cabe abajo de 1100px: pasa a hamburguesa */
+  @media (max-width: 1100px) {
+    nav { padding: 0.9rem 1.5rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 0.9rem 1.5rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .cuotas-content { padding: 3rem 1.5rem; }
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--blanco);
+    padding: 3rem 2.5rem 2rem;
+    color: var(--gris-medio);
+  }
+
+  .footer-bottom {
+    border-top: 1px solid var(--borde);
+    padding-top: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.78rem;
+    color: var(--gris-medio);
+  }
+
+  .footer-privacy {
+    justify-self: start;
+    font-weight: 500;
+    color: var(--gris-medio);
+    transition: color 0.2s;
+  }
+
+  .footer-privacy:hover { color: var(--azul); }
+
+  .footer-bottom > span {
+    justify-self: end;
+    text-align: right;
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 1rem;
+    justify-self: center;
+  }
+
+  .footer-social a {
+    color: var(--gris-medio);
+    font-size: 0.78rem;
+    letter-spacing: 0;
+    transition: color 0.2s;
+  }
+
+  .footer-social a:hover { color: var(--azul); }
+
+  @media (max-width: 768px) {
+    .footer-bottom { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 1rem; }
+    .footer-privacy, .footer-social, .footer-bottom > span { justify-self: center; }
+  }
+
+  /* ── SELECTOR DE IDIOMA ── */
+  .lang-switch {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-left: 0.6rem;
+  }
+
+  .lang-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.65rem;
+    border: 1px solid var(--borde);
+    border-radius: 999px;
+    background: var(--blanco);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--gris-medio);
+    text-decoration: none;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .lang-btn svg {
+    height: 14px;
+    width: auto;
+    border-radius: 2px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+    flex-shrink: 0;
+  }
+
+  a.lang-btn:hover { color: var(--gris-oscuro); border-color: var(--gris-oscuro); }
+  .lang-btn.active { color: var(--gris-oscuro); border-color: var(--gris-oscuro); }
+</style>
+</head>
+<body>
+
+<!-- OVERLAY MÓVIL -->
+<div id="menu-overlay">
+  <a href="index-en.html" onclick="closeMenu()">Home</a>
+  <a href="index-en.html#pilotos" onclick="closeMenu()">Pilots</a>
+  <a href="cuotas-en.html" onclick="closeMenu()">Fees</a>
+  <a href="clima-en.html" onclick="closeMenu()">Weather</a>
+  <a href="despegues-en.html" onclick="closeMenu()">Launch Sites</a>
+  <a href="espacio-aereo-en.html" onclick="closeMenu()">Airspace</a>
+  <a href="eventos-en.html" onclick="closeMenu()">Events</a>
+  <a href="tandems-en.html" onclick="closeMenu()">Tandem Flights</a>
+  <a href="nosotros-en.html" onclick="closeMenu()">About Us</a>
+  <a href="sos-en.html" onclick="closeMenu()" class="sos-mobile">🆘 SOS</a>
+  <a href="cuotas-en.html" onclick="closeMenu()" class="cta-mobile">Join the Club</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index-en.html" class="nav-logo">
+    <img src="img/logovlj.png" alt="Club de Vuelo Libre de Jalisco">
+    <div class="nav-logo-text">
+      <span class="l1">Vuelo Libre Jalisco</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index-en.html#pilotos">Pilots</a></li>
+    <li><a href="cuotas-en.html" class="active">Fees</a></li>
+    <li><a href="clima-en.html">Weather</a></li>
+    <li><a href="despegues-en.html">Launch Sites</a></li>
+    <li><a href="espacio-aereo-en.html">Airspace</a></li>
+    <li><a href="eventos-en.html">Events</a></li>
+    <li><a href="tandems-en.html">Tandem Flights</a></li>
+    <li><a href="nosotros-en.html">About Us</a></li>
+    <li><a href="sos-en.html" class="nav-sos">SOS</a></li>
+    <li><a href="cuotas-en.html" class="nav-cta">Join the Club</a></li>
+  </ul>
+  <div class="lang-switch" role="group" aria-label="Language">
+    <span class="lang-btn active" title="English" aria-current="true"><svg viewBox="0 0 60 30" aria-hidden="true"><clipPath id="uk-s"><path d="M0,0 v30 h60 v-30 z"/></clipPath><clipPath id="uk-t"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath><g clip-path="url(#uk-s)"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#uk-t)" stroke="#C8102E" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></g></svg><span>ENG</span></span>
+    <a class="lang-btn" href="cuotas.html" hreflang="es" lang="es" title="Español"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="20" height="40" fill="#006847"/><rect x="20" width="20" height="40" fill="#fff"/><rect x="40" width="20" height="40" fill="#CE1126"/><g transform="translate(30 20) scale(0.7) translate(-30 -20)"><path d="M30,16 c-2.5,-4 -7.5,-5 -10.5,-2.5 c2.5,0.5 4,1.5 5,3 c-2.5,0 -4.5,1 -6,2.5 c2.5,-0.5 5,0 7,1 c-0.5,2.5 -0.5,5 0.5,7.5 c1,-2 2.5,-3.5 4.5,-4 l1.5,1.5 l1.5,-1.5 c2,0.5 3.5,2 4.5,4 c1,-2.5 1,-5 0.5,-7.5 c2,-1 4.5,-1.5 7,-1 c-1.5,-1.5 -3.5,-2.5 -6,-2.5 c1,-1.5 2.5,-2.5 5,-3 c-3,-2.5 -8,-1.5 -10.5,2.5 z" fill="#7A5230"/><circle cx="30" cy="14.5" r="1.4" fill="#7A5230"/></g></svg><span>ESP</span></a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <p class="eyebrow">Membership</p>
+  <h1>Fees and membership</h1>
+  <p>Be part of the free-flight community in Jalisco. Your membership gives you access to the launch sites managed by the association and to all of our projects.</p>
+</div>
+
+<!-- CONTENIDO -->
+<div class="cuotas-content">
+
+  <ul class="beneficios-list">
+    <li class="beneficios-check">Under 18s fly free of charge</li>
+    <li class="beneficios-check">Voting rights at assemblies</li>
+    <li class="beneficios-check">Join the committees of the Club de Vuelo Libre Jalisco</li>
+    <li class="beneficios-check">Unlimited use of the Las Antenas launch site</li>
+    <li class="beneficios-check">Unlimited use of the Piano and Los Papalotes landing zones</li>
+    <li class="beneficios-check">Access to the first-aid kit at Los Papalotes</li>
+    <li class="beneficios-cross">Does not include the Gravedad 0 and La Ceja launch sites (these have a separate fee)</li>
+  </ul>
+
+  <div class="cuotas-tabla">
+    <div class="cuotas-tabla-header">
+      <span>Membership type</span>
+      <span>Fee</span>
+    </div>
+    <div class="cuota-row cuota-row-pagable">
+      <div>
+        <div class="cuota-tipo">Member</div>
+        <div class="cuota-nota">Annual membership</div>
+        <div class="cuota-desc">A pilot who flies privately / non-commercially, usually alone and without passengers. May fly tandem flights with passengers, as long as they are not part of a commercial operation (neither one-off nor repeated).</div>
+      </div>
+      <div class="cuota-precio">$2,800</div>
+      <a href="https://mpago.la/1ZLnLDA" target="_blank" rel="noopener" class="cuota-pagar">Pay →</a>
+    </div>
+    <div class="cuota-row cuota-row-pagable">
+      <div>
+        <div class="cuota-tipo">Tandem</div>
+        <div class="cuota-nota">Tandem flight</div>
+        <div class="cuota-desc">Pilots who belong to the tandem operators registered with the Club de Vuelo Libre Jalisco, who have submitted their credentials and certifications, and who are approved to operate commercially at the Las Antenas launch site and the Piano and Los Papalotes landing zones.</div>
+      </div>
+      <div class="cuota-precio">$5,600</div>
+      <a href="https://mpago.la/1opv4Vi" target="_blank" rel="noopener" class="cuota-pagar">Pay →</a>
+    </div>
+    <div class="cuota-row cuota-row-pagable">
+      <div>
+        <div class="cuota-tipo">Student</div>
+        <div class="cuota-nota">In training</div>
+        <div class="cuota-desc">A pilot actively in the learning process, registered with a recognized flight school, who always flies with a tutor present on every flight.</div>
+      </div>
+      <div class="cuota-precio">$1,400</div>
+      <a href="https://mpago.la/1uwXWjB" target="_blank" rel="noopener" class="cuota-pagar">Pay →</a>
+    </div>
+    <div class="cuota-row">
+      <div>
+        <div class="cuota-tipo">Under 18</div>
+        <div class="cuota-nota">Free of charge</div>
+        <div class="cuota-desc">We support the training of young pilots: if you are under 18, you fly free of charge.</div>
+      </div>
+      <div class="cuota-gratis">FREE</div>
+    </div>
+    <div class="cuota-row cuota-row-pagable">
+      <div>
+        <div class="cuota-tipo">Visitor — per day</div>
+        <div class="cuota-nota">Visiting pilot</div>
+        <div class="cuota-desc">Anyone outside the club who wants to fly in our flying area and only pays a daily fee. May also do tandem flights, as long as they are not part of a commercial operation.</div>
+      </div>
+      <div class="cuota-precio">$100</div>
+      <a href="https://mpago.la/2fyXstC" target="_blank" rel="noopener" class="cuota-pagar">Pay →</a>
+    </div>
+    <div class="cuota-row cuota-row-pagable">
+      <div>
+        <div class="cuota-tipo">Visitor — 15 days</div>
+        <div class="cuota-nota">Visiting pilot</div>
+        <div class="cuota-desc">For the same pilots from outside the club, who will stay and fly in our area for a longer period (more than one day, but less than a year). The same conditions apply to tandem flights: they are only allowed if they are not part of a commercial operation.</div>
+      </div>
+      <div class="cuota-precio">$1,000</div>
+      <a href="https://mpago.la/2FQg4A9" target="_blank" rel="noopener" class="cuota-pagar">Pay →</a>
+    </div>
+  </div>
+  <details class="reembolso-toggle">
+    <summary>Refund policy</summary>
+    <div class="reembolso-body">
+      <p>We have a 30-day refund policy: you have 30 days after making your payment to request a refund.</p>
+      <p>To be eligible for a refund, you will need your proof of payment, and the membership, fee or paid flight must not have been used.</p>
+      <p>To start a refund, you can contact us at <a href="mailto:pagos@vuelolibrejalisco.com">pagos@vuelolibrejalisco.com</a>.</p>
+      <p>We will notify you whether the refund was approved or not. If approved, you will receive it on your original payment method within 10 business days. Please note that your bank or credit card company may also take some time to process and reflect the refund.</p>
+      <p>If more than 15 business days have passed since we approved your refund, contact us again at <a href="mailto:pagos@vuelolibrejalisco.com">pagos@vuelolibrejalisco.com</a>.</p>
+    </div>
+  </details>
+
+  <p class="cuotas-contacto-nota">Questions or concerns about your payment? Write to us at <a href="mailto:pagos@vuelolibrejalisco.com">pagos@vuelolibrejalisco.com</a>.</p>
+
+</div>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-bottom">
+    <a href="aviso-privacidad-en.html" class="footer-privacy">Privacy notice</a>
+    <div class="footer-social">
+      <a href="https://www.facebook.com/vuelolibrejal" target="_blank" rel="noopener">Facebook</a>
+      <a href="mailto:contacto@vuelolibrejalisco.com">Email</a>
+    </div>
+    <span>© 2026 Asociación de Vuelo Libre de Jalisco A.C. All rights reserved.</span>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    const overlay = document.getElementById('menu-overlay');
+    const btn = document.getElementById('hamburger');
+    const isOpen = overlay.style.display === 'flex';
+    overlay.style.display = isOpen ? 'none' : 'flex';
+    btn.classList.toggle('open', !isOpen);
+  }
+  function closeMenu() {
+    document.getElementById('menu-overlay').style.display = 'none';
+    document.getElementById('hamburger').classList.remove('open');
+  }
+</script>
+
+</body>
+</html>

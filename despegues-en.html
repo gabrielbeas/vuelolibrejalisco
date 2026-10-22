@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
+<link rel="icon" href="img/favicon/favicon.ico">
+<meta name="description" content="Free-flight sites in Jalisco — Club de Vuelo Libre de Jalisco">
+<title>Launch Sites — Vuelo Libre Jalisco</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --azul: #2B6CB0;
+    --azul-claro: #4A90D9;
+    --azul-cielo: #EBF4FF;
+    --amarillo: #F5C518;
+    --blanco: #FFFFFF;
+    --gris-oscuro: #171923;
+    --gris-medio: #6B7280;
+    --gris-claro: #F7FAFC;
+    --borde: rgba(0,0,0,0.1);
+    --radius: 10px;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--blanco);
+    color: var(--gris-oscuro);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 2.5rem;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--borde);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .nav-logo img { height: 2.8rem; width: auto; }
+
+  .nav-logo-text { display: flex; align-items: center; }
+  .nav-logo-text .l1 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--gris-oscuro);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.8rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--gris-medio);
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--azul); }
+  .nav-links a.active { color: var(--azul); border-bottom: 2px solid var(--azul); padding-bottom: 2px; }
+
+  .nav-links a.nav-sos,
+  #menu-overlay a.sos-mobile { color: var(--rojo, #C53030); }
+  .nav-links a.nav-sos:hover { color: #9B2C2C; }
+  .nav-links a.nav-sos.active { color: var(--rojo, #C53030); border-bottom-color: var(--rojo, #C53030); }
+  #menu-overlay a.sos-mobile { color: #F8B4B4; }
+
+  .nav-cta {
+    background: var(--blanco) !important;
+    border: 1px solid var(--gris-oscuro);
+    color: var(--gris-oscuro) !important;
+    padding: 0.45rem 1.1rem;
+    border-radius: 999px;
+    font-weight: 500 !important;
+    transition: background 0.2s, color 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--gris-oscuro) !important; color: var(--blanco) !important; }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 600;
+    padding: 4px;
+  }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--gris-oscuro); transition: all 0.3s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ── OVERLAY MÓVIL ── */
+  #menu-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(23,25,35,0.97);
+    backdrop-filter: blur(20px);
+    z-index: 500;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.8rem;
+  }
+  #menu-overlay a {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    color: #ffffff;
+  }
+  #menu-overlay .cta-mobile {
+    background: var(--blanco);
+    border: 1px solid var(--blanco);
+    color: var(--gris-oscuro) !important;
+    padding: 0.7rem 1.8rem;
+    border-radius: 999px;
+    margin-top: 0.5rem;
+    font-size: 1rem !important;
+  }
+
+  /* ── HERO SUBPÁGINA ── */
+  .page-hero {
+    background: url('img/headers/despegues.JPEG') center center / cover no-repeat;
+    padding: 14rem 2.5rem 6rem;
+    text-align: center;
+    position: relative;
+  }
+
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(23,25,35,0.275);
+  }
+
+  .page-hero .eyebrow,
+  .page-hero h1,
+  .page-hero p {
+    position: relative;
+    z-index: 1;
+  }
+
+  .page-hero .eyebrow {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 1rem;
+  }
+
+  .page-hero h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #ffffff;
+    line-height: 0.95;
+    margin-bottom: 1rem;
+  }
+
+  .page-hero p {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.7);
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ── CONTENIDO ── */
+  .page-content {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 4rem 2.5rem;
+  }
+
+  /* ── ENCABEZADOS DE SECCIÓN ── */
+  .desp-h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--gris-oscuro);
+    margin: 0 0 0.5rem;
+  }
+
+  .desp-h2-resto { margin-top: 4rem; }
+
+  .desp-intro {
+    font-size: 0.9rem;
+    color: var(--gris-medio);
+    line-height: 1.7;
+    margin-bottom: 0.5rem;
+  }
+
+  .desp-intro a {
+    color: var(--azul);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  /* ── GRID DE DESPEGUES ── */
+  .despegues-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1px;
+    background: var(--borde);
+    border: 1px solid var(--borde);
+    margin-top: 2rem;
+  }
+
+  .despegues-grid-jalisco { grid-template-columns: 1fr; }
+
+  .despegues-grid-simple { grid-template-columns: 1fr; margin-top: 1.5rem; }
+
+  .despegue-card-simple .despegue-body { padding: 1.2rem 1.5rem; }
+
+  .despegue-card {
+    background: var(--blanco);
+    overflow: hidden;
+    transition: background 0.2s;
+    cursor: default;
+  }
+
+  .despegue-card:hover { background: var(--azul-cielo); }
+
+  .despegue-body { padding: 1.2rem 1.5rem 1.5rem; }
+
+  /* Ficha homologada con datos del archivo despegues-mexico.xlsx */
+  .despegue-ficha {
+    margin-top: 0.8rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--borde);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .ficha-row { display: flex; gap: 0.6rem; font-size: 0.78rem; }
+
+  .despegue-viento-diagrama {
+    display: block;
+    max-width: 220px;
+    width: 100%;
+    margin: 0.8rem auto 0;
+  }
+
+  .despegue-body-conimagen {
+    display: flex;
+    align-items: flex-end;
+    gap: 1.8rem;
+    flex-wrap: wrap;
+  }
+
+  .despegue-body-conimagen .despegue-info { flex: 1 1 260px; min-width: 0; }
+
+  .despegue-body-conimagen .despegue-viento-diagrama {
+    flex: 0 0 220px;
+    margin: 0;
+  }
+
+  @media (max-width: 560px) {
+    .despegue-body-conimagen { flex-direction: column; }
+    .despegue-body-conimagen .despegue-viento-diagrama { flex: 0 0 auto; margin: 0 auto; }
+  }
+
+  .ficha-label {
+    flex: 0 0 100px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.6rem;
+    color: var(--azul-claro);
+    padding-top: 0.1rem;
+  }
+
+  .ficha-val { color: var(--gris-medio); }
+
+  .ficha-val a {
+    color: var(--azul-claro);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .despegue-btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.55rem 1.1rem;
+    background: var(--blanco);
+    border: 1px solid var(--gris-oscuro);
+    border-radius: 999px;
+    color: var(--gris-oscuro);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .despegue-btn:hover { background: var(--gris-oscuro); color: var(--blanco); }
+
+  .despegue-btn-primary {
+    background: var(--azul);
+    border-color: var(--azul);
+    color: var(--blanco);
+  }
+
+  .despegue-btn-primary:hover { background: var(--azul-claro); border-color: var(--azul-claro); color: var(--blanco); }
+
+  .despegue-btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1rem;
+  }
+
+  .despegue-btns-primary { margin-top: 1rem; margin-bottom: -0.4rem; }
+
+  .despegue-btns .despegue-btn { margin-top: 0; }
+
+  .despegue-tipo {
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--azul-claro);
+    margin-bottom: 0.4rem;
+  }
+
+  .despegue-nombre {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--gris-oscuro);
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+  }
+
+  /* La nav ya no cabe abajo de 1100px: pasa a hamburguesa */
+  @media (max-width: 1100px) {
+    nav { padding: 0.9rem 1.5rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 0.9rem 1.5rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .page-content { padding: 3rem 1.5rem; }
+    .despegues-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--blanco);
+    padding: 3rem 2.5rem 2rem;
+    color: var(--gris-medio);
+  }
+
+  .footer-bottom {
+    border-top: 1px solid var(--borde);
+    padding-top: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.78rem;
+    color: var(--gris-medio);
+  }
+
+  .footer-privacy {
+    justify-self: start;
+    font-weight: 500;
+    color: var(--gris-medio);
+    transition: color 0.2s;
+  }
+
+  .footer-privacy:hover { color: var(--azul); }
+
+  .footer-bottom > span {
+    justify-self: end;
+    text-align: right;
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 1rem;
+    justify-self: center;
+  }
+
+  .footer-social a {
+    color: var(--gris-medio);
+    font-size: 0.78rem;
+    letter-spacing: 0;
+    transition: color 0.2s;
+  }
+
+  .footer-social a:hover { color: var(--azul); }
+
+  @media (max-width: 768px) {
+    .footer-bottom { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 1rem; }
+    .footer-privacy, .footer-social, .footer-bottom > span { justify-self: center; }
+  }
+
+  /* ── SELECTOR DE IDIOMA ── */
+  .lang-switch {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-left: 0.6rem;
+  }
+
+  .lang-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.65rem;
+    border: 1px solid var(--borde);
+    border-radius: 999px;
+    background: var(--blanco);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--gris-medio);
+    text-decoration: none;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .lang-btn svg {
+    height: 14px;
+    width: auto;
+    border-radius: 2px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+    flex-shrink: 0;
+  }
+
+  a.lang-btn:hover { color: var(--gris-oscuro); border-color: var(--gris-oscuro); }
+  .lang-btn.active { color: var(--gris-oscuro); border-color: var(--gris-oscuro); }
+</style>
+</head>
+<body>
+
+<!-- OVERLAY MÓVIL -->
+<div id="menu-overlay">
+  <a href="index-en.html" onclick="closeMenu()">Home</a>
+  <a href="index-en.html#pilotos" onclick="closeMenu()">Pilots</a>
+  <a href="cuotas-en.html" onclick="closeMenu()">Fees</a>
+  <a href="clima-en.html" onclick="closeMenu()">Weather</a>
+  <a href="despegues-en.html" onclick="closeMenu()">Launch Sites</a>
+  <a href="espacio-aereo-en.html" onclick="closeMenu()">Airspace</a>
+  <a href="eventos-en.html" onclick="closeMenu()">Events</a>
+  <a href="tandems-en.html" onclick="closeMenu()">Tandem Flights</a>
+  <a href="nosotros-en.html" onclick="closeMenu()">About Us</a>
+  <a href="sos-en.html" onclick="closeMenu()" class="sos-mobile">🆘 SOS</a>
+  <a href="cuotas-en.html" onclick="closeMenu()" class="cta-mobile">Join the Club</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index-en.html" class="nav-logo">
+    <img src="img/logovlj.png" alt="Club de Vuelo Libre de Jalisco">
+    <div class="nav-logo-text">
+      <span class="l1">Vuelo Libre Jalisco</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index-en.html#pilotos">Pilots</a></li>
+    <li><a href="cuotas-en.html">Fees</a></li>
+    <li><a href="clima-en.html">Weather</a></li>
+    <li><a href="despegues-en.html" class="active">Launch Sites</a></li>
+    <li><a href="espacio-aereo-en.html">Airspace</a></li>
+    <li><a href="eventos-en.html">Events</a></li>
+    <li><a href="tandems-en.html">Tandem Flights</a></li>
+    <li><a href="nosotros-en.html">About Us</a></li>
+    <li><a href="sos-en.html" class="nav-sos">SOS</a></li>
+    <li><a href="cuotas-en.html" class="nav-cta">Join the Club</a></li>
+  </ul>
+  <div class="lang-switch" role="group" aria-label="Language">
+    <span class="lang-btn active" title="English" aria-current="true"><svg viewBox="0 0 60 30" aria-hidden="true"><clipPath id="uk-s"><path d="M0,0 v30 h60 v-30 z"/></clipPath><clipPath id="uk-t"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath><g clip-path="url(#uk-s)"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#uk-t)" stroke="#C8102E" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></g></svg><span>ENG</span></span>
+    <a class="lang-btn" href="despegues.html" hreflang="es" lang="es" title="Español"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="20" height="40" fill="#006847"/><rect x="20" width="20" height="40" fill="#fff"/><rect x="40" width="20" height="40" fill="#CE1126"/><g transform="translate(30 20) scale(0.7) translate(-30 -20)"><path d="M30,16 c-2.5,-4 -7.5,-5 -10.5,-2.5 c2.5,0.5 4,1.5 5,3 c-2.5,0 -4.5,1 -6,2.5 c2.5,-0.5 5,0 7,1 c-0.5,2.5 -0.5,5 0.5,7.5 c1,-2 2.5,-3.5 4.5,-4 l1.5,1.5 l1.5,-1.5 c2,0.5 3.5,2 4.5,4 c1,-2.5 1,-5 0.5,-7.5 c2,-1 4.5,-1.5 7,-1 c-1.5,-1.5 -3.5,-2.5 -6,-2.5 c1,-1.5 2.5,-2.5 5,-3 c-3,-2.5 -8,-1.5 -10.5,2.5 z" fill="#7A5230"/><circle cx="30" cy="14.5" r="1.4" fill="#7A5230"/></g></svg><span>ESP</span></a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <p class="eyebrow">Launch site network · Mexico</p>
+  <h1>Launch Sites</h1>
+  <p>10 free-flight sites in Jalisco, plus a growing network of sites across the rest of the country. From sierra hillsides to coastal launches — paragliding and hang gliding for all levels.</p>
+</div>
+
+<!-- CONTENIDO -->
+<div class="page-content">
+
+  <h2 class="desp-h2">Tapalpa</h2>
+
+  <div class="despegues-grid despegues-grid-jalisco">
+
+    <!-- Las Antenas -->
+    <div class="despegue-card">
+      <div class="despegue-body despegue-body-conimagen">
+        <div class="despegue-info">
+          <div class="despegue-tipo">Tapalpa</div>
+          <div class="despegue-nombre">Las Antenas</div>
+          <div class="despegue-ficha">
+            <div class="ficha-row"><span class="ficha-label">Level</span><span class="ficha-val">PG Intermediate, HG Advanced</span></div>
+            <div class="ficha-row"><span class="ficha-label">Altitude</span><span class="ficha-val">2,208 m a.s.l.</span></div>
+            <div class="ficha-row"><span class="ficha-label">Wind</span><span class="ficha-val">East</span></div>
+            <div class="ficha-row"><span class="ficha-label">Coordinates</span><span class="ficha-val">N 19.93942° O 103.65272° · <a href="https://www.google.com/maps?q=19.939417,-103.652722" target="_blank" rel="noopener">See on Google Maps →</a></span></div>
+            <div class="ficha-row"><span class="ficha-label">Access</span><span class="ficha-val">Any type of vehicle</span></div>
+            <div class="ficha-row"><span class="ficha-label">Operated by</span><span class="ficha-val">Club de Vuelo Libre Jalisco</span></div>
+            <div class="ficha-row"><span class="ficha-label">Contacts</span><span class="ficha-val">—</span></div>
+          </div>
+          <a href="https://www.wilderadventures.com/launch/2226/tapalpa-san-martin" target="_blank" rel="noopener" class="despegue-btn">Wilder Adventures →</a>
+        </div>
+        <img src="img/viento/antenas.png" alt="Diagram of favorable wind directions for Las Antenas" class="despegue-viento-diagrama">
+      </div>
+    </div>
+
+    <!-- Gravedad Cero -->
+    <div class="despegue-card">
+      <div class="despegue-body despegue-body-conimagen">
+        <div class="despegue-info">
+          <div class="despegue-tipo">Tapalpa</div>
+          <div class="despegue-nombre">Gravedad Cero</div>
+          <div class="despegue-ficha">
+            <div class="ficha-row"><span class="ficha-label">Level</span><span class="ficha-val">PG Intermediate, HG Advanced</span></div>
+            <div class="ficha-row"><span class="ficha-label">Altitude</span><span class="ficha-val">2,212 m a.s.l.</span></div>
+            <div class="ficha-row"><span class="ficha-label">Wind</span><span class="ficha-val">Northeast – East (good), Southeast (possible)</span></div>
+            <div class="ficha-row"><span class="ficha-label">Coordinates</span><span class="ficha-val">N 19.9422° O 103.654° · <a href="https://www.google.com/maps?q=19.9422,-103.654" target="_blank" rel="noopener">See on Google Maps →</a></span></div>
+            <div class="ficha-row"><span class="ficha-label">Access</span><span class="ficha-val">Any type of vehicle</span></div>
+            <div class="ficha-row"><span class="ficha-label">Operated by</span><span class="ficha-val">Gravedad Cero</span></div>
+            <div class="ficha-row"><span class="ficha-label">Contacts</span><span class="ficha-val">—</span></div>
+          </div>
+          <div class="despegue-btns">
+            <a href="https://www.wilderadventures.com/launch/2226/tapalpa-san-martin" target="_blank" rel="noopener" class="despegue-btn">Wilder Adventures →</a>
+            <a href="https://www.paraglidingearth.com/?site=6754" target="_blank" rel="noopener" class="despegue-btn">ParaglidingEarth →</a>
+          </div>
+        </div>
+        <img src="img/viento/g0.png" alt="Diagram of favorable wind directions for Gravedad Cero: Northeast, East and Southeast" class="despegue-viento-diagrama">
+      </div>
+    </div>
+
+    <!-- La Ceja -->
+    <div class="despegue-card">
+      <div class="despegue-body despegue-body-conimagen">
+        <div class="despegue-info">
+          <div class="despegue-tipo">Tapalpa · Hillside</div>
+          <div class="despegue-nombre">La Ceja</div>
+          <div class="despegue-ficha">
+            <div class="ficha-row"><span class="ficha-label">Level</span><span class="ficha-val">PG Intermediate, HG Advanced</span></div>
+            <div class="ficha-row"><span class="ficha-label">Altitude</span><span class="ficha-val">2,180 m a.s.l.</span></div>
+            <div class="ficha-row"><span class="ficha-label">Wind</span><span class="ficha-val">East – Southeast – South</span></div>
+            <div class="ficha-row"><span class="ficha-label">Coordinates</span><span class="ficha-val">N 19.93559° O 103.65375° · <a href="https://www.google.com/maps?q=19.93559,-103.65375" target="_blank" rel="noopener">See on Google Maps →</a></span></div>
+            <div class="ficha-row"><span class="ficha-label">Access</span><span class="ficha-val">Any type of vehicle</span></div>
+            <div class="ficha-row"><span class="ficha-label">Operated by</span><span class="ficha-val">Aventuras La Ceja</span></div>
+            <div class="ficha-row"><span class="ficha-label">Contacts</span><span class="ficha-val">Juan Carlos Madrigal <a href="tel:+523411089337">+52-341-108-9337</a> · Diego Vásquez <a href="tel:+523339032373">+52-33-3903-2373</a></span></div>
+          </div>
+          <div class="despegue-btns despegue-btns-primary">
+            <a href="https://aventuraslaceja.com/" target="_blank" rel="noopener" class="despegue-btn despegue-btn-primary">Aventuras La Ceja →</a>
+          </div>
+          <div class="despegue-btns">
+            <a href="https://www.wilderadventures.com/launch/2226/tapalpa-san-martin" target="_blank" rel="noopener" class="despegue-btn">Wilder Adventures →</a>
+            <a href="https://www.paraglidingearth.com/?site=10133" target="_blank" rel="noopener" class="despegue-btn">ParaglidingEarth →</a>
+          </div>
+        </div>
+        <img src="img/viento/laceja.png" alt="Diagram of favorable wind directions for La Ceja: East, Southeast and South" class="despegue-viento-diagrama">
+      </div>
+    </div>
+
+    <!-- Aterrizaje Los Papalotes -->
+    <div class="despegue-card">
+      <div class="despegue-body">
+        <div class="despegue-tipo">Tapalpa · Hillside</div>
+        <div class="despegue-nombre">Los Papalotes landing zone</div>
+        <div class="despegue-ficha">
+          <div class="ficha-row"><span class="ficha-label">Level</span><span class="ficha-val">PG Intermediate, HG Advanced</span></div>
+          <div class="ficha-row"><span class="ficha-label">Altitude</span><span class="ficha-val">2,180 m a.s.l.</span></div>
+          <div class="ficha-row"><span class="ficha-label">Wind</span><span class="ficha-val">East – Southeast – South</span></div>
+          <div class="ficha-row"><span class="ficha-label">Coordinates</span><span class="ficha-val">N 19.93559° O 103.65375° · <a href="https://www.google.com/maps?q=19.93559,-103.65375" target="_blank" rel="noopener">See on Google Maps →</a></span></div>
+          <div class="ficha-row"><span class="ficha-label">Access</span><span class="ficha-val">Any type of vehicle</span></div>
+          <div class="ficha-row"><span class="ficha-label">Operated by</span><span class="ficha-val">Los Papalotes</span></div>
+          <div class="ficha-row"><span class="ficha-label">Contacts</span><span class="ficha-val">Juan Carlos Madrigal <a href="tel:+523411089337">+52-341-108-9337</a> · Diego Vásquez <a href="tel:+523339032373">+52-33-3903-2373</a></span></div>
+        </div>
+        <div class="despegue-btns despegue-btns-primary">
+          <a href="https://parapentetapalpa.com/" target="_blank" rel="noopener" class="despegue-btn despegue-btn-primary">Parapente Tapalpa →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Aterrizaje El Arbolito (Piano) -->
+    <div class="despegue-card">
+      <div class="despegue-body">
+        <div class="despegue-tipo">Tapalpa · Hillside</div>
+        <div class="despegue-nombre">El Arbolito (Piano) landing zone</div>
+        <div class="despegue-ficha">
+          <div class="ficha-row"><span class="ficha-label">Level</span><span class="ficha-val">Landing conditions are very variable</span></div>
+          <div class="ficha-row"><span class="ficha-label">Altitude</span><span class="ficha-val">1,350 m a.s.l.</span></div>
+          <div class="ficha-row"><span class="ficha-label">Wind</span><span class="ficha-val">Variable</span></div>
+          <div class="ficha-row"><span class="ficha-label">Coordinates</span><span class="ficha-val">N 19.95618° O 103.61451° · <a href="https://www.google.com/maps?q=19.95618,-103.61451" target="_blank" rel="noopener">See on Google Maps →</a></span></div>
+          <div class="ficha-row"><span class="ficha-label">Access</span><span class="ficha-val">Any type of vehicle</span></div>
+          <div class="ficha-row"><span class="ficha-label">Operated by</span><span class="ficha-val">Vuelo Libre Jalisco</span></div>
+          <div class="ficha-row"><span class="ficha-label">Contacts</span><span class="ficha-val">—</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <h2 class="desp-h2">Jalisco</h2>
+
+  <div class="despegues-grid despegues-grid-jalisco">
+
+    <!-- El Chante -->
+    <div class="despegue-card">
+      <div class="despegue-body">
+        <div class="despegue-tipo">Jalisco</div>
+        <div class="despegue-nombre">El Chante</div>
+        <div class="despegue-ficha">
+          <div class="ficha-row"><span class="ficha-label">Level</span><span class="ficha-val">—</span></div>
+          <div class="ficha-row"><span class="ficha-label">Altitude</span><span class="ficha-val">2,043 m a.s.l.</span></div>
+          <div class="ficha-row"><span class="ficha-label">Wind</span><span class="ficha-val">No data</span></div>
+          <div class="ficha-row"><span class="ficha-label">Coordinates</span><span class="ficha-val">N 20.3067° O 103.393° · <a href="https://www.google.com/maps?q=20.3067,-103.393" target="_blank" rel="noopener">See on Google Maps →</a></span></div>
+          <div class="ficha-row"><span class="ficha-label">Access</span><span class="ficha-val">—</span></div>
+          <div class="ficha-row"><span class="ficha-label">Operated by</span><span class="ficha-val">—</span></div>
+          <div class="ficha-row"><span class="ficha-label">Contacts</span><span class="ficha-val">—</span></div>
+        </div>
+        <a href="https://www.paraglidingearth.com/?site=16149" target="_blank" rel="noopener" class="despegue-btn">ParaglidingEarth →</a>
+      </div>
+    </div>
+
+    <!-- Tepa-trepa -->
+    <div class="despegue-card">
+      <div class="despegue-body">
+        <div class="despegue-tipo">Jalisco</div>
+        <div class="despegue-nombre">Tepa-trepa</div>
+        <div class="despegue-ficha">
+          <div class="ficha-row"><span class="ficha-label">Level</span><span class="ficha-val">—</span></div>
+          <div class="ficha-row"><span class="ficha-label">Altitude</span><span class="ficha-val">2,369 m a.s.l.</span></div>
+          <div class="ficha-row"><span class="ficha-label">Wind</span><span class="ficha-val">West (possible)</span></div>
+          <div class="ficha-row"><span class="ficha-label">Coordinates</span><span class="ficha-val">N 20.7615° O 102.61° · <a href="https://www.google.com/maps?q=20.7615,-102.61" target="_blank" rel="noopener">See on Google Maps →</a></span></div>
+          <div class="ficha-row"><span class="ficha-label">Access</span><span class="ficha-val">—</span></div>
+          <div class="ficha-row"><span class="ficha-label">Operated by</span><span class="ficha-val">—</span></div>
+          <div class="ficha-row"><span class="ficha-label">Contacts</span><span class="ficha-val">—</span></div>
+        </div>
+        <a href="https://www.paraglidingearth.com/?site=23159" target="_blank" rel="noopener" class="despegue-btn">ParaglidingEarth →</a>
+      </div>
+    </div>
+
+    <!-- Atotonilco -->
+    <div class="despegue-card">
+      <div class="despegue-body">
+        <div class="despegue-tipo">Jalisco</div>
+        <div class="despegue-nombre">Atotonilco</div>
+        <div class="despegue-ficha">
+          <div class="ficha-row"><span class="ficha-label">Level</span><span class="ficha-val">—</span></div>
+          <div class="ficha-row"><span class="ficha-label">Altitude</span><span class="ficha-val">2,091 m a.s.l.</span></div>
+          <div class="ficha-row"><span class="ficha-label">Wind</span><span class="ficha-val">Southwest (good), South (possible)</span></div>
+          <div class="ficha-row"><span class="ficha-label">Coordinates</span><span class="ficha-val">N 20.5593° O 102.554° · <a href="https://www.google.com/maps?q=20.5593,-102.554" target="_blank" rel="noopener">See on Google Maps →</a></span></div>
+          <div class="ficha-row"><span class="ficha-label">Access</span><span class="ficha-val">—</span></div>
+          <div class="ficha-row"><span class="ficha-label">Operated by</span><span class="ficha-val">—</span></div>
+          <div class="ficha-row"><span class="ficha-label">Contacts</span><span class="ficha-val">—</span></div>
+        </div>
+        <a href="https://www.paraglidingearth.com/?site=23160" target="_blank" rel="noopener" class="despegue-btn">ParaglidingEarth →</a>
+      </div>
+    </div>
+
+    <!-- Mazamitla -->
+    <div class="despegue-card">
+      <div class="despegue-body">
+        <div class="despegue-tipo">Jalisco</div>
+        <div class="despegue-nombre">Mazamitla</div>
+        <div class="despegue-ficha">
+          <div class="ficha-row"><span class="ficha-label">Level</span><span class="ficha-val">—</span></div>
+          <div class="ficha-row"><span class="ficha-label">Altitude</span><span class="ficha-val">—</span></div>
+          <div class="ficha-row"><span class="ficha-label">Wind</span><span class="ficha-val">No data</span></div>
+          <div class="ficha-row"><span class="ficha-label">Coordinates</span><span class="ficha-val">—</span></div>
+          <div class="ficha-row"><span class="ficha-label">Access</span><span class="ficha-val">—</span></div>
+          <div class="ficha-row"><span class="ficha-label">Operated by</span><span class="ficha-val">—</span></div>
+          <div class="ficha-row"><span class="ficha-label">Contacts</span><span class="ficha-val">—</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Conchas Chinas -->
+    <div class="despegue-card">
+      <div class="despegue-body">
+        <div class="despegue-tipo">Coast · Puerto Vallarta</div>
+        <div class="despegue-nombre">Conchas Chinas</div>
+        <div class="despegue-ficha">
+          <div class="ficha-row"><span class="ficha-label">Level</span><span class="ficha-val">—</span></div>
+          <div class="ficha-row"><span class="ficha-label">Altitude</span><span class="ficha-val">131 m a.s.l.</span></div>
+          <div class="ficha-row"><span class="ficha-label">Wind</span><span class="ficha-val">Southwest (good), Southeast – South (possible)</span></div>
+          <div class="ficha-row"><span class="ficha-label">Coordinates</span><span class="ficha-val">N 20.581° O 105.238° · <a href="https://www.google.com/maps?q=20.581,-105.238" target="_blank" rel="noopener">See on Google Maps →</a></span></div>
+          <div class="ficha-row"><span class="ficha-label">Access</span><span class="ficha-val">—</span></div>
+          <div class="ficha-row"><span class="ficha-label">Operated by</span><span class="ficha-val">—</span></div>
+          <div class="ficha-row"><span class="ficha-label">Contacts</span><span class="ficha-val">—</span></div>
+        </div>
+        <a href="https://www.paraglidingearth.com/?site=17238" target="_blank" rel="noopener" class="despegue-btn">ParaglidingEarth →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <h2 class="desp-h2 desp-h2-resto">Rest of Mexico</h2>
+  <p class="desp-intro">Network under construction — sites registered on <a href="https://www.paraglidingearth.com/index.php?country=MX" target="_blank" rel="noopener">ParaglidingEarth</a> outside Jalisco. Basic profiles for now; we will keep adding access and local contact details.</p>
+
+  <div class="despegues-grid despegues-grid-simple">
+
+    <div class="despegue-card despegue-card-simple">
+      <div class="despegue-body despegue-body-conimagen">
+        <div class="despegue-info">
+          <div class="despegue-tipo">State of Mexico</div>
+          <div class="despegue-nombre">Valle de Bravo · La Torre</div>
+          <div class="despegue-ficha">
+            <div class="ficha-row"><span class="ficha-label">Level</span><span class="ficha-val">—</span></div>
+            <div class="ficha-row"><span class="ficha-label">Altitude</span><span class="ficha-val">2,166 m a.s.l.</span></div>
+            <div class="ficha-row"><span class="ficha-label">Wind</span><span class="ficha-val">West (good), Southwest – Northwest (possible)</span></div>
+            <div class="ficha-row"><span class="ficha-label">Coordinates</span><span class="ficha-val">N 19.1846° O 100.114° · <a href="https://www.google.com/maps?q=19.1846,-100.114" target="_blank" rel="noopener">See on Google Maps →</a></span></div>
+            <div class="ficha-row"><span class="ficha-label">Access</span><span class="ficha-val">—</span></div>
+            <div class="ficha-row"><span class="ficha-label">Operated by</span><span class="ficha-val">—</span></div>
+            <div class="ficha-row"><span class="ficha-label">Contacts</span><span class="ficha-val">—</span></div>
+          </div>
+          <div class="despegue-btns">
+            <a href="https://www.wilderadventures.com/launch/2414/el-torre-valle-de-bravo" target="_blank" rel="noopener" class="despegue-btn">Wilder Adventures →</a>
+            <a href="https://www.paraglidingearth.com/?site=6749" target="_blank" rel="noopener" class="despegue-btn">ParaglidingEarth →</a>
+          </div>
+        </div>
+        <img src="img/viento/latorre.png" alt="Diagram of favorable wind directions for La Torre: West, Southwest and Northwest" class="despegue-viento-diagrama">
+      </div>
+    </div>
+
+    <div class="despegue-card despegue-card-simple">
+      <div class="despegue-body despegue-body-conimagen">
+        <div class="despegue-info">
+          <div class="despegue-tipo">State of Mexico</div>
+          <div class="despegue-nombre">Valle de Bravo · El Peñón</div>
+          <div class="despegue-ficha">
+            <div class="ficha-row"><span class="ficha-label">Level</span><span class="ficha-val">—</span></div>
+            <div class="ficha-row"><span class="ficha-label">Altitude</span><span class="ficha-val">2,336 m a.s.l.</span></div>
+            <div class="ficha-row"><span class="ficha-label">Wind</span><span class="ficha-val">South – Southwest – West (good), North – Southeast – Northwest (possible)</span></div>
+            <div class="ficha-row"><span class="ficha-label">Coordinates</span><span class="ficha-val">N 19.0616° O 100.091° · <a href="https://www.google.com/maps?q=19.0616,-100.091" target="_blank" rel="noopener">See on Google Maps →</a></span></div>
+            <div class="ficha-row"><span class="ficha-label">Access</span><span class="ficha-val">La Albarrada, Valle de Bravo, State of Mexico</span></div>
+            <div class="ficha-row"><span class="ficha-label">Operated by</span><span class="ficha-val">Club Peñón</span></div>
+            <div class="ficha-row"><span class="ficha-label">Contacts</span><span class="ficha-val">—</span></div>
+          </div>
+          <div class="despegue-btns despegue-btns-primary">
+            <a href="https://clubpenon.org" target="_blank" rel="noopener" class="despegue-btn despegue-btn-primary">Club Peñón →</a>
+          </div>
+          <div class="despegue-btns">
+            <a href="https://www.wilderadventures.com/launch/1068/el-penon-la-albarrada" target="_blank" rel="noopener" class="despegue-btn">Wilder Adventures →</a>
+            <a href="https://www.paraglidingearth.com/?site=9867" target="_blank" rel="noopener" class="despegue-btn">ParaglidingEarth →</a>
+          </div>
+        </div>
+        <img src="img/viento/elpenon.png" alt="Diagram of favorable wind directions for El Peñón: South, Southwest and West" class="despegue-viento-diagrama">
+      </div>
+    </div>
+
+    <div class="despegue-card despegue-card-simple">
+      <div class="despegue-body despegue-body-conimagen">
+        <div class="despegue-info">
+          <div class="despegue-tipo">Aguascalientes</div>
+          <div class="despegue-nombre">Picacho</div>
+          <div class="despegue-ficha">
+            <div class="ficha-row"><span class="ficha-label">Level</span><span class="ficha-val">—</span></div>
+            <div class="ficha-row"><span class="ficha-label">Altitude</span><span class="ficha-val">2,348 m a.s.l.</span></div>
+            <div class="ficha-row"><span class="ficha-label">Wind</span><span class="ficha-val">East (good), Northeast – Southeast (possible)</span></div>
+            <div class="ficha-row"><span class="ficha-label">Coordinates</span><span class="ficha-val">N 21.8774° O 102.422° · <a href="https://www.google.com/maps?q=21.8774,-102.422" target="_blank" rel="noopener">See on Google Maps →</a></span></div>
+            <div class="ficha-row"><span class="ficha-label">Access</span><span class="ficha-val">—</span></div>
+            <div class="ficha-row"><span class="ficha-label">Operated by</span><span class="ficha-val">—</span></div>
+            <div class="ficha-row"><span class="ficha-label">Contacts</span><span class="ficha-val">—</span></div>
+          </div>
+          <a href="https://www.paraglidingearth.com/?site=23672" target="_blank" rel="noopener" class="despegue-btn">ParaglidingEarth →</a>
+        </div>
+        <img src="img/viento/picacho.png" alt="Wind direction diagram for Picacho" class="despegue-viento-diagrama">
+      </div>
+    </div>
+
+    <div class="despegue-card despegue-card-simple">
+      <div class="despegue-body despegue-body-conimagen">
+        <div class="despegue-info">
+          <div class="despegue-tipo">Colima</div>
+          <div class="despegue-nombre">La Cumbre</div>
+          <div class="despegue-ficha">
+            <div class="ficha-row"><span class="ficha-label">Level</span><span class="ficha-val">Intermediate (EN B) and up · beginners only with an instructor</span></div>
+            <div class="ficha-row"><span class="ficha-label">Altitude</span><span class="ficha-val">770 m a.s.l. takeoff · 390 m a.s.l. landing (380 m drop)</span></div>
+            <div class="ficha-row"><span class="ficha-label">Wind</span><span class="ficha-val">Southeast (good), South – Southwest (possible) · best between 10:00–13:00</span></div>
+            <div class="ficha-row"><span class="ficha-label">Coordinates</span><span class="ficha-val">N 19.1813° O 103.692° · <a href="https://www.google.com/maps?q=19.1813,-103.692" target="_blank" rel="noopener">See on Google Maps →</a></span></div>
+            <div class="ficha-row"><span class="ficha-label">Access</span><span class="ficha-val">7.5 km south of Colima via the Colima–Jiquilpan highway + 3.5 km of cobblestone road; small cars can reach the takeoff</span></div>
+            <div class="ficha-row"><span class="ficha-label">Operated by</span><span class="ficha-val">Parapente Colima</span></div>
+            <div class="ficha-row"><span class="ficha-label">Contacts</span><span class="ficha-val"><a href="https://www.facebook.com/parapentecolima" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.instagram.com/parapente.colima/" target="_blank" rel="noopener">@parapente.colima</a> · Instructor Benjamín Silva (cert. AVLM) <a href="https://www.instagram.com/benjamin.anda.volando/" target="_blank" rel="noopener">@benjamin.anda.volando</a></span></div>
+          </div>
+          <div class="despegue-btns despegue-btns-primary">
+            <a href="https://www.parapentecolima.com/despegues.php" target="_blank" rel="noopener" class="despegue-btn despegue-btn-primary">Parapente Colima →</a>
+          </div>
+          <div class="despegue-btns">
+            <a href="https://www.wilderadventures.com/launch/1232/la-cumbre-el-bajio" target="_blank" rel="noopener" class="despegue-btn">Wilder Adventures →</a>
+            <a href="https://www.paraglidingearth.com/?site=6815" target="_blank" rel="noopener" class="despegue-btn">ParaglidingEarth →</a>
+          </div>
+        </div>
+        <img src="img/viento/lacumbre.png" alt="Wind direction diagram for La Cumbre" class="despegue-viento-diagrama">
+      </div>
+    </div>
+
+    <div class="despegue-card despegue-card-simple">
+      <div class="despegue-body despegue-body-conimagen">
+        <div class="despegue-info">
+          <div class="despegue-tipo">Oaxaca</div>
+          <div class="despegue-nombre">Zaachila</div>
+          <div class="despegue-ficha">
+            <div class="ficha-row"><span class="ficha-label">Level</span><span class="ficha-val">—</span></div>
+            <div class="ficha-row"><span class="ficha-label">Altitude</span><span class="ficha-val">2,314 m a.s.l.</span></div>
+            <div class="ficha-row"><span class="ficha-label">Wind</span><span class="ficha-val">Northeast – East – Southeast (good), North – South (possible)</span></div>
+            <div class="ficha-row"><span class="ficha-label">Coordinates</span><span class="ficha-val">N 16.9328° O 96.8532° · <a href="https://www.google.com/maps?q=16.9328,-96.8532" target="_blank" rel="noopener">See on Google Maps →</a></span></div>
+            <div class="ficha-row"><span class="ficha-label">Access</span><span class="ficha-val">—</span></div>
+            <div class="ficha-row"><span class="ficha-label">Operated by</span><span class="ficha-val">—</span></div>
+            <div class="ficha-row"><span class="ficha-label">Contacts</span><span class="ficha-val">—</span></div>
+          </div>
+          <a href="https://www.paraglidingearth.com/?site=11173" target="_blank" rel="noopener" class="despegue-btn">ParaglidingEarth →</a>
+        </div>
+        <img src="img/viento/zaachila.png" alt="Diagram of favorable wind directions for Zaachila: Northeast, East and Southeast" class="despegue-viento-diagrama">
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-bottom">
+    <a href="aviso-privacidad-en.html" class="footer-privacy">Privacy notice</a>
+    <div class="footer-social">
+      <a href="https://www.facebook.com/vuelolibrejal" target="_blank" rel="noopener">Facebook</a>
+      <a href="mailto:contacto@vuelolibrejalisco.com">Email</a>
+    </div>
+    <span>© 2026 Asociación de Vuelo Libre de Jalisco A.C. All rights reserved.</span>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    const overlay = document.getElementById('menu-overlay');
+    const btn = document.getElementById('hamburger');
+    const isOpen = overlay.style.display === 'flex';
+    overlay.style.display = isOpen ? 'none' : 'flex';
+    btn.classList.toggle('open', !isOpen);
+  }
+  function closeMenu() {
+    document.getElementById('menu-overlay').style.display = 'none';
+    document.getElementById('hamburger').classList.remove('open');
+  }
+</script>
+
+</body>
+</html>

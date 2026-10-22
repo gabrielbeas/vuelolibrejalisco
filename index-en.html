@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
+<link rel="icon" href="img/favicon/favicon.ico">
+<meta name="description" content="Club de Vuelo Libre de Jalisco — Paragliding and hang gliding association in Jalisco, Mexico. Flying since 1978.">
+<meta property="og:title" content="Club de Vuelo Libre de Jalisco">
+<meta property="og:description" content="Paragliding and hang gliding association in Jalisco, Mexico.">
+<meta property="og:url" content="https://www.vuelolibrejalisco.com">
+<title>Vuelo Libre Jalisco</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --azul: #2B6CB0;
+    --azul-claro: #4A90D9;
+    --azul-cielo: #EBF4FF;
+    --amarillo: #F5C518;
+    --blanco: #FFFFFF;
+    --gris-oscuro: #171923;
+    --gris-medio: #6B7280;
+    --gris-claro: #F7FAFC;
+    --borde: rgba(0,0,0,0.1);
+    --radius: 10px;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--blanco);
+    color: var(--gris-oscuro);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 2.5rem;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--borde);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .nav-logo img {
+    height: 2.8rem;
+    width: auto;
+  }
+
+  .nav-logo-text {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-logo-text .l1 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    color: var(--gris-oscuro);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--gris-medio);
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gris-oscuro); }
+
+  .nav-links a.nav-sos,
+  #menu-overlay a.sos-mobile { color: var(--rojo, #C53030); }
+  .nav-links a.nav-sos:hover { color: #9B2C2C; }
+  .nav-links a.nav-sos.active { color: var(--rojo, #C53030); border-bottom-color: var(--rojo, #C53030); }
+  #menu-overlay a.sos-mobile { color: #F8B4B4; }
+
+  .nav-cta {
+    background: var(--blanco) !important;
+    border: 1px solid var(--gris-oscuro);
+    color: var(--gris-oscuro) !important;
+    padding: 0.45rem 1.1rem;
+    border-radius: 999px;
+    font-weight: 500 !important;
+    transition: background 0.2s, color 0.2s !important;
+  }
+
+  .nav-cta:hover { background: var(--gris-oscuro) !important; color: var(--blanco) !important; }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 600;
+    padding: 4px;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--gris-oscuro);
+    transition: all 0.3s;
+  }
+
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ── OVERLAY MÓVIL ── */
+  #menu-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(23,25,35,0.97);
+    backdrop-filter: blur(20px);
+    z-index: 500;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.8rem;
+  }
+
+  #menu-overlay a {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: #ffffff;
+    text-decoration: none;
+  }
+
+  #menu-overlay .cta-mobile {
+    background: var(--blanco);
+    border: 1px solid var(--blanco);
+    color: var(--gris-oscuro) !important;
+    padding: 0.7rem 1.8rem;
+    border-radius: 999px;
+    margin-top: 0.5rem;
+    font-size: 1rem !important;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    padding: 0;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #1A202C;
+    z-index: 0;
+  }
+
+  .hero-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+  }
+
+  .hero-slide.active {
+    opacity: 1;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(23,25,35,0.65) 0%, rgba(23,25,35,0.08) 50%, transparent 100%);
+    z-index: 2;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    padding: 4rem 2.5rem 5rem;
+    max-width: 700px;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 1.2rem;
+    height: 1px;
+    background: rgba(255,255,255,0.6);
+  }
+
+  .hero-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(3.4rem, 10vw, 7.5rem);
+    font-weight: 700;
+    line-height: 1.0;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin-bottom: 0;
+    letter-spacing: 0;
+  }
+
+  .hero-title span {
+    color: #ffffff;
+  }
+
+  .hero-sub {
+    font-size: 1.02rem;
+    font-weight: 400;
+    color: rgba(255,255,255,0.82);
+    margin-bottom: 2.5rem;
+    max-width: 34rem;
+    line-height: 1.7;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: rgba(255,255,255,0.95);
+    border: 1px solid rgba(255,255,255,0.95);
+    color: var(--gris-oscuro);
+    font-weight: 500;
+    font-size: 0.82rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 0.8rem 1.7rem;
+    border-radius: var(--radius);
+    transition: background 0.2s, color 0.2s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { background: transparent; color: #ffffff; }
+
+  .btn-secondary {
+    border: 1px solid rgba(255,255,255,0.55);
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 0.82rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 0.8rem 1.7rem;
+    border-radius: var(--radius);
+    transition: all 0.2s;
+    display: inline-block;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255,255,255,0.12);
+    border-color: white;
+  }
+
+  /* ── SECCIONES ── */
+  section { padding: 5rem 2.5rem; scroll-margin-top: 90px; }
+
+  .section-inner {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .section-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--azul);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .section-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 1.2rem;
+    height: 1px;
+    background: var(--azul);
+  }
+
+  .section-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.9rem, 3.4vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.08;
+    text-transform: uppercase;
+    color: var(--gris-oscuro);
+    margin-bottom: 1.5rem;
+  }
+
+  .section-eyebrow,
+  .section-title,
+  .section-body { max-width: 860px; }
+
+  .section-body {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--gris-medio);
+    line-height: 1.8;
+  }
+
+  /* ── METEOROLOGÍA (bloque en inicio) ── */
+  .meteo-strip {
+    background: var(--gris-claro);
+    border-top: 1px solid var(--borde);
+    border-bottom: 1px solid var(--borde);
+    padding: 1.4rem 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .meteo-mas {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--azul);
+  }
+
+  .meteo-mas:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+  /* ── PILOTOS ── */
+  .pilotos { background: var(--blanco); }
+
+  .pilotos-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* ── BIENVENIDA TRILINGÜE ── */
+  .bienvenida {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.4rem 0.9rem;
+    margin: -0.6rem 0 1.6rem;
+  }
+
+  .bienvenida span {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 1;
+    color: var(--gris-medio);
+  }
+
+  .bienvenida span.principal { color: var(--gris-oscuro); }
+  .bienvenida .sep { color: var(--azul-claro); }
+
+  /* ── AVISO DE RESPONSABILIDAD ── */
+  .responsabilidad {
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+    border-radius: var(--radius);
+    padding: 2rem 2rem 2rem 2rem;
+    margin-top: 2.5rem;
+  }
+
+  .responsabilidad h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    color: var(--gris-oscuro);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .responsabilidad h3::before {
+    content: '';
+    display: inline-block;
+    width: 1.9rem;
+    height: 1.9rem;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--azul-cielo);
+  }
+
+  .responsabilidad p {
+    font-size: 0.92rem;
+    color: var(--gris-medio);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+
+  .responsabilidad p:last-child { margin-bottom: 0; }
+  .responsabilidad .info-list { margin: 0 0 1.2rem; }
+  .responsabilidad .info-list li::before { color: var(--azul); }
+
+  /* ── SUBSECCIÓN: PILOTOS VISITANTES ── */
+  .visitantes-box {
+    max-width: 860px;
+    margin: 4rem auto 0;
+    background: transparent;
+    padding: 0;
+  }
+
+  .visitantes-box .eyebrow-mini {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--azul);
+    margin-bottom: 0.6rem;
+  }
+
+  .visitantes-box h3.visitantes-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+    font-weight: 700;
+    line-height: 1.1;
+    text-transform: uppercase;
+    color: var(--gris-oscuro);
+    margin-bottom: 0.8rem;
+  }
+
+  .visitantes-box > p.visitantes-body {
+    font-size: 0.95rem;
+    color: var(--gris-medio);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .visitantes-box-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .visitantes-box-grid .info-block {
+    margin-bottom: 0;
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+    border-radius: var(--radius);
+    padding: 1.4rem 1.4rem 1.6rem;
+  }
+  .visitantes-box-grid .info-block-title { border-bottom: none; }
+  .visitantes-box-grid .info-list li::before { color: var(--azul); }
+
+  .info-block {
+    margin-bottom: 2rem;
+  }
+
+  .info-block-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--gris-oscuro);
+    margin-bottom: 0.8rem;
+    padding-bottom: 0;
+    border-bottom: none;
+    display: inline-block;
+  }
+
+  .info-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .info-list li {
+    font-size: 0.88rem;
+    color: var(--gris-medio);
+    padding-left: 1.1rem;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .info-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--azul-claro);
+  }
+
+  /* SOS */
+  .pilotos > .sos-box { max-width: 860px; margin: 3rem auto 0; }
+
+  .sos-box {
+    background: #FFF5F5;
+    border: 1px solid rgba(197,48,48,0.2);
+    border-radius: var(--radius);
+    color: var(--gris-oscuro);
+    padding: 1.5rem 2rem;
+    margin-top: 2rem;
+  }
+
+  .sos-box h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    color: #C53030;
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .sos-box p {
+    font-size: 0.87rem;
+    color: var(--gris-medio);
+    line-height: 1.6;
+  }
+
+  .sos-box p a { color: #C53030 !important; }
+
+  /* ── DESPEGUES ── */
+  .despegues { background: var(--blanco); }
+
+  .despegues-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1px;
+    background: var(--borde);
+    border: 1px solid var(--borde);
+    margin-top: 3rem;
+    max-width: 860px;
+  }
+
+  .section-content {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .despegue-card {
+    background: var(--blanco);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.2s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .despegue-card:hover { background: var(--azul-cielo); }
+
+  .despegue-img {
+    height: 180px;
+    background: linear-gradient(135deg, #4A90D9 0%, #87CEEB 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .despegue-img-placeholder {
+    font-size: 3rem;
+    opacity: 0.4;
+  }
+
+  .despegue-body {
+    padding: 1.2rem 1.5rem 1.5rem;
+  }
+
+  .despegue-tipo {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--azul-claro);
+    margin-bottom: 0.4rem;
+  }
+
+  .despegue-nombre {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--gris-oscuro);
+    margin-bottom: 0.6rem;
+    line-height: 1.15;
+  }
+
+  .despegue-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.8rem;
+  }
+
+  .despegue-tag {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border: 1px solid var(--borde);
+    border-radius: 999px;
+    padding: 0.2rem 0.7rem;
+    color: var(--gris-medio);
+  }
+
+  .despegue-pending {
+    font-size: 0.75rem;
+    color: var(--gris-medio);
+    font-style: italic;
+    margin-top: 0.5rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--blanco);
+    padding: 3rem 2.5rem 2rem;
+    color: var(--gris-medio);
+  }
+
+  .footer-bottom {
+    border-top: 1px solid var(--borde);
+    padding-top: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.78rem;
+    color: var(--gris-medio);
+  }
+
+  .footer-privacy {
+    justify-self: start;
+    font-weight: 500;
+    color: var(--gris-medio);
+    transition: color 0.2s;
+  }
+
+  .footer-privacy:hover { color: var(--azul); }
+
+  .footer-bottom > span {
+    justify-self: end;
+    text-align: right;
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 1rem;
+    justify-self: center;
+  }
+
+  .footer-social a {
+    color: var(--gris-medio);
+    font-size: 0.78rem;
+    letter-spacing: 0;
+    transition: color 0.2s;
+  }
+
+  .footer-social a:hover { color: var(--azul); }
+
+  /* La nav ya no cabe abajo de 1100px: pasa a hamburguesa */
+  @media (max-width: 1100px) {
+    nav { padding: 0.9rem 1.5rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 0.9rem 1.5rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+
+    section { padding: 3.5rem 1.5rem; }
+
+    .hero-content { padding: 4rem 1.5rem 4rem; }
+
+    .cuotas-inner,
+    .pilotos-inner { grid-template-columns: 1fr; gap: 2rem; }
+
+    .responsabilidad { padding: 1.6rem 1.4rem; }
+    .visitantes-box { padding: 0; margin-top: 3rem; }
+    .visitantes-box-grid { grid-template-columns: 1fr; gap: 1rem; }
+
+
+    .footer-bottom { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 1rem; }
+    .footer-privacy, .footer-social, .footer-bottom > span { justify-self: center; }
+
+  }
+
+  /* ── SELECTOR DE IDIOMA ── */
+  .lang-switch {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-left: 0.6rem;
+  }
+
+  .lang-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.65rem;
+    border: 1px solid var(--borde);
+    border-radius: 999px;
+    background: var(--blanco);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--gris-medio);
+    text-decoration: none;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .lang-btn svg {
+    height: 14px;
+    width: auto;
+    border-radius: 2px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+    flex-shrink: 0;
+  }
+
+  a.lang-btn:hover { color: var(--gris-oscuro); border-color: var(--gris-oscuro); }
+  .lang-btn.active { color: var(--gris-oscuro); border-color: var(--gris-oscuro); }
+</style>
+</head>
+<body>
+
+<!-- OVERLAY MÓVIL -->
+<div id="menu-overlay">
+  <a href="#inicio" onclick="closeMenu()">Home</a>
+  <a href="#pilotos" onclick="closeMenu()">Pilots</a>
+  <a href="cuotas-en.html" onclick="closeMenu()">Fees</a>
+  <a href="clima-en.html" onclick="closeMenu()">Weather</a>
+  <a href="despegues-en.html" onclick="closeMenu()">Launch Sites</a>
+  <a href="espacio-aereo-en.html" onclick="closeMenu()">Airspace</a>
+  <a href="eventos-en.html" onclick="closeMenu()">Events</a>
+  <a href="tandems-en.html" onclick="closeMenu()">Tandem Flights</a>
+  <a href="nosotros-en.html" onclick="closeMenu()">About Us</a>
+  <a href="sos-en.html" onclick="closeMenu()" class="sos-mobile">🆘 SOS</a>
+  <a href="cuotas-en.html" onclick="closeMenu()" class="cta-mobile">Join the Club</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#inicio" class="nav-logo">
+    <img src="img/logovlj.png" alt="Club de Vuelo Libre de Jalisco">
+    <div class="nav-logo-text">
+      <span class="l1">Vuelo Libre Jalisco</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#pilotos">Pilots</a></li>
+    <li><a href="cuotas-en.html">Fees</a></li>
+    <li><a href="clima-en.html">Weather</a></li>
+    <li><a href="despegues-en.html">Launch Sites</a></li>
+    <li><a href="espacio-aereo-en.html">Airspace</a></li>
+    <li><a href="eventos-en.html">Events</a></li>
+    <li><a href="tandems-en.html">Tandem Flights</a></li>
+    <li><a href="nosotros-en.html">About Us</a></li>
+    <li><a href="sos-en.html" class="nav-sos">SOS</a></li>
+    <li><a href="cuotas-en.html" class="nav-cta">Join the Club</a></li>
+  </ul>
+  <div class="lang-switch" role="group" aria-label="Language">
+    <span class="lang-btn active" title="English" aria-current="true"><svg viewBox="0 0 60 30" aria-hidden="true"><clipPath id="uk-s"><path d="M0,0 v30 h60 v-30 z"/></clipPath><clipPath id="uk-t"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath><g clip-path="url(#uk-s)"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#uk-t)" stroke="#C8102E" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></g></svg><span>ENG</span></span>
+    <a class="lang-btn" href="index.html" hreflang="es" lang="es" title="Español"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="20" height="40" fill="#006847"/><rect x="20" width="20" height="40" fill="#fff"/><rect x="40" width="20" height="40" fill="#CE1126"/><g transform="translate(30 20) scale(0.7) translate(-30 -20)"><path d="M30,16 c-2.5,-4 -7.5,-5 -10.5,-2.5 c2.5,0.5 4,1.5 5,3 c-2.5,0 -4.5,1 -6,2.5 c2.5,-0.5 5,0 7,1 c-0.5,2.5 -0.5,5 0.5,7.5 c1,-2 2.5,-3.5 4.5,-4 l1.5,1.5 l1.5,-1.5 c2,0.5 3.5,2 4.5,4 c1,-2.5 1,-5 0.5,-7.5 c2,-1 4.5,-1.5 7,-1 c-1.5,-1.5 -3.5,-2.5 -6,-2.5 c1,-1.5 2.5,-2.5 5,-3 c-3,-2.5 -8,-1.5 -10.5,2.5 z" fill="#7A5230"/><circle cx="30" cy="14.5" r="1.4" fill="#7A5230"/></g></svg><span>ESP</span></a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-bg" id="hero-carousel"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Jalisco, México · Parapente &amp; Ala Delta</p>
+    <h1 class="hero-title">
+      Vuelo<br>
+      <span>Libre</span><br>
+      Jalisco
+    </h1>
+  </div>
+</section>
+
+<!-- METEOROLOGÍA RÁPIDA -->
+<div class="meteo-strip">
+  <a href="clima-en.html" class="meteo-mas">Full weather guide →</a>
+</div>
+
+<!-- PILOTOS -->
+<section class="pilotos" id="pilotos">
+  <div class="pilotos-inner">
+    <div>
+      <p class="section-eyebrow">Community</p>
+      <h2 class="section-title">Pilots</h2>
+      <p class="bienvenida">
+        <span class="principal">Welcome</span>
+        <span class="sep">·</span>
+        <span>Bienvenido</span>
+        <span class="sep">·</span>
+        <span>Bienvenue</span>
+      </p>
+      <p class="section-body">Since 1978 we have brought together those who fly paragliders and hang gliders in Jalisco — from the Tapalpa sierras to the Yelapa coast. Whether you fly with us for a single day or for many years, you will find an organized community, well-kept sites and people willing to share the sky.</p>
+
+      <div class="responsabilidad">
+        <h3>Your flight, your responsibility</h3>
+        <p>Flying in Jalisco is a privilege we share with landowners, local communities and other users of the airspace. That is why we say it plainly: every pilot is responsible for knowing and respecting the rules of the site where they fly.</p>
+        <ul class="info-list">
+          <li>The procedures and restrictions of each launch site</li>
+          <li>The applicable airspace and current notices</li>
+          <li>Authorized landing zones and private land</li>
+          <li>Your own level, equipment, license and insurance</li>
+        </ul>
+        <p>The club organizes, manages access and informs — but it does not supervise or authorize individual flights. The decision to launch is always yours, and so are its consequences. If you have any doubt about a site, ask before you fly: there will always be someone in the community willing to explain it to you.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUBSECCIÓN: PILOTOS VISITANTES -->
+  <div class="visitantes-box" id="visitantes">
+    <p class="eyebrow-mini">Welcome to Jalisco</p>
+    <h3 class="visitantes-title">Visiting pilots</h3>
+    <p class="visitantes-body">Are you coming from another state or another country? We would be glad to host you. Here is what to sort out before your first flight with us.</p>
+
+    <div class="visitantes-box-grid">
+      <div class="info-block">
+        <h3 class="info-block-title">Arrival checklist</h3>
+        <ul class="info-list">
+          <li>Write to us before you travel</li>
+          <li>Contact the local pilot at the site</li>
+          <li>Bring your license and insurance</li>
+          <li>Pay the visitor fee</li>
+          <li>Attend the briefing before launching</li>
+        </ul>
+      </div>
+
+      <div class="info-block">
+        <h3 class="info-block-title">Visitor fees</h3>
+        <ul class="info-list">
+          <li>$100 MXN per day</li>
+          <li>$1,000 MXN for 15 days</li>
+          <li>Payment available via MercadoPago</li>
+          <li><a href="cuotas-en.html" style="color:var(--azul);text-decoration:underline;text-underline-offset:2px;">See all fees →</a></li>
+        </ul>
+      </div>
+
+      <div class="info-block">
+        <h3 class="info-block-title">Before you come</h3>
+        <ul class="info-list">
+          <li>Check that your insurance covers Mexico</li>
+          <li>Check the level required at each site</li>
+          <li><a href="espacio-aereo-en.html" style="color:var(--azul);text-decoration:underline;text-underline-offset:2px;">Check the current airspace →</a></li>
+          <li><a href="despegues-en.html" style="color:var(--azul);text-decoration:underline;text-underline-offset:2px;">See the launch sites →</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sos-box">
+    <h3>🆘 Emergencies</h3>
+    <p>In case of an accident, call <strong>911</strong> immediately and give the most precise GPS location you can. The full protocol, rescue contacts and nearby medical services are on the <a href="sos-en.html" style="color:#ffffff;text-decoration:underline;text-underline-offset:3px;"><strong>SOS page →</strong></a></p>
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-bottom">
+    <a href="aviso-privacidad-en.html" class="footer-privacy">Privacy notice</a>
+    <div class="footer-social">
+      <a href="https://www.facebook.com/vuelolibrejal" target="_blank" rel="noopener">Facebook</a>
+      <a href="mailto:contacto@vuelolibrejalisco.com">Email</a>
+    </div>
+    <span>© 2026 Asociación de Vuelo Libre de Jalisco A.C. All rights reserved.</span>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    const overlay = document.getElementById('menu-overlay');
+    const btn = document.getElementById('hamburger');
+    const isOpen = overlay.style.display === 'flex';
+    overlay.style.display = isOpen ? 'none' : 'flex';
+    btn.classList.toggle('open', !isOpen);
+  }
+
+  function closeMenu() {
+    document.getElementById('menu-overlay').style.display = 'none';
+    document.getElementById('hamburger').classList.remove('open');
+  }
+
+  (function heroCarousel() {
+    const container = document.getElementById('hero-carousel');
+    if (!container) return;
+
+    const files = [
+      { src: 'img/carrusel/1.JPEG', type: 'image' },
+      { src: 'img/carrusel/2.jpg', type: 'image' },
+      { src: 'img/carrusel/3.JPEG', type: 'image' },
+      { src: 'img/carrusel/4.JPEG', type: 'image' },
+      { src: 'img/carrusel/5.JPEG', type: 'image' },
+      { src: 'img/carrusel/6.JPEG', type: 'image' },
+      { src: 'img/carrusel/7.jpg', type: 'image' },
+      { src: 'img/carrusel/juan.mp4', type: 'video' },
+      { src: 'img/carrusel/rodo.mp4', type: 'video' },
+      { src: 'img/carrusel/para1.mp4', type: 'video' },
+      { src: 'img/carrusel/tandem1.mp4', type: 'video' },
+      { src: 'img/carrusel/tandem2.mp4', type: 'video' }
+    ];
+
+    // Baraja el orden con Fisher-Yates para que sea distinto en cada carga de la página
+    for (let i = files.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [files[i], files[j]] = [files[j], files[i]];
+    }
+
+    const IMAGE_DURATION = 3000;
+    const VIDEO_FALLBACK_DURATION = 20000;
+
+    const slides = files.map(function (f) {
+      const el = f.type === 'video' ? document.createElement('video') : document.createElement('img');
+      el.className = 'hero-slide';
+      el.src = f.src;
+      if (f.type === 'video') {
+        el.muted = true;
+        el.playsInline = true;
+        el.preload = 'auto';
+      } else {
+        el.alt = 'Free flight in Jalisco';
+      }
+      container.appendChild(el);
+      return { el: el, type: f.type };
+    });
+
+    let current = 0;
+    let timer = null;
+
+    function scheduleNext() {
+      clearTimeout(timer);
+      const slide = slides[current];
+      if (slide.type === 'video') {
+        slide.el.onended = advance;
+        timer = setTimeout(advance, VIDEO_FALLBACK_DURATION);
+      } else {
+        timer = setTimeout(advance, IMAGE_DURATION);
+      }
+    }
+
+    function goTo(index) {
+      slides.forEach(function (s, i) {
+        const active = i === index;
+        s.el.classList.toggle('active', active);
+        if (s.type === 'video') {
+          if (active) {
+            s.el.currentTime = 0;
+            s.el.play().catch(function () {});
+          } else {
+            s.el.pause();
+          }
+        }
+      });
+      current = index;
+      scheduleNext();
+    }
+
+    function advance() {
+      goTo((current + 1) % slides.length);
+    }
+
+    goTo(current);
+  })();
+</script>
+
+</body>
+</html>
