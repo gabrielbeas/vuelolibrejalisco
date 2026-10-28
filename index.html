@@ -776,6 +776,51 @@
 
   a.lang-btn:hover { color: var(--gris-oscuro); border-color: var(--gris-oscuro); }
   .lang-btn.active { color: var(--gris-oscuro); border-color: var(--gris-oscuro); }
+
+  /* ── AVISO IMPORTANTE ── */
+  .aviso-importante {
+    position: absolute;
+    top: 6.5rem;
+    left: 2.5rem;
+    max-width: 560px;
+    z-index: 4;
+    background: rgba(15, 20, 30, 0.74);
+    color: #ffffff;
+    border-left: 4px solid #E53E3E;
+    border-radius: 10px;
+    padding: 1.1rem 1.4rem;
+    font-family: 'Inter', sans-serif;
+  }
+  .aviso-importante h4 {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #FBD38D;
+    margin: 0 0 0.5rem;
+  }
+  .aviso-importante p {
+    font-size: 0.92rem;
+    line-height: 1.55;
+    margin: 0 0 0.5rem;
+  }
+  .aviso-importante ul {
+    margin: 0.4rem 0 0.6rem 1.1rem;
+    padding: 0;
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+  .aviso-importante .aviso-firma {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.75);
+    margin: 0;
+  }
+  @media (max-width: 768px) {
+    .aviso-importante { left: 1.5rem; right: 1.5rem; max-width: none; top: 5.5rem; }
+  }
+  @media (max-width: 480px) {
+    .nav-logo-text { display: none; }
+  }
 </style>
 </head>
 <body>
@@ -828,6 +873,17 @@
 <section class="hero" id="inicio">
   <div class="hero-bg" id="hero-carousel"></div>
   <div class="hero-overlay"></div>
+  <div class="aviso-importante" role="alert">
+    <h4>Aviso importante · Frecuencias de radio en Tapalpa</h4>
+    <p>A todos los asociados y practicantes de vuelo libre en Tapalpa:</p>
+    <p>Con motivo de la competencia SRS, del <strong>7 al 14 de noviembre de 2026</strong>, las siguientes frecuencias estarán reservadas exclusivamente para participantes y organizadores:</p>
+    <ul>
+      <li>145.950 MHz</li>
+      <li>145.900 MHz</li>
+    </ul>
+    <p>Durante estas fechas, pedimos a los pilotos ajenos a la competencia no usar esas frecuencias. La frecuencia para ellos será <strong>145.750 MHz</strong>.</p>
+    <p class="aviso-firma">Asociación de Vuelo Libre de Jalisco, A.C.</p>
+  </div>
   <div class="hero-content">
     <p class="hero-eyebrow">Jalisco, México · Parapente &amp; Ala Delta</p>
     <h1 class="hero-title">
